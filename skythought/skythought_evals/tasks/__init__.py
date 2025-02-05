@@ -12,6 +12,8 @@ from .mmlu.mmlu_handler import MMLUProTaskHandler, MMLUTaskHandler
 from .numina.numina_handler import NUMINATaskHandler
 from .olympiadbench.olympiadbench_handler import OlympiadBenchMathTaskHandler
 from .taco.taco_handler import TACOTaskHandler
+from .atcoder.atcoder_handler import AtCoderHandler
+from .supervised_atcoder.supervised_atcoder_handler import SupervisedAtCoderHandler
 
 TASK_HANDLER_MAP = {
     "numina": NUMINATaskHandler,
@@ -28,6 +30,8 @@ TASK_HANDLER_MAP = {
     "amc23": AMC23TaskHandler,
     "minervamath": MinervaMathTaskHandler,
     "olympiadbench_math": OlympiadBenchMathTaskHandler,
+    "atcoder": AtCoderHandler,
+    "supervised_atcoder": SupervisedAtCoderHandler
 }
 
 __all__ = [
@@ -49,4 +53,6 @@ __all__ = [
     MinervaMathTaskHandler,
     TaskConfig,
     TASK_HANDLER_MAP,
+    AtCoderHandler,
+    SupervisedAtCoderHandler
 ]

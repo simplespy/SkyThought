@@ -515,6 +515,7 @@ def main():
         )
 
     task_config = TaskConfig.from_yaml(TASK_NAMES_TO_YAML[args.task])
+    print(task_config)
     handler_name = task_config.handler
     handler_cls = TASK_HANDLER_MAP[handler_name]
     handler = handler_cls(task_config)

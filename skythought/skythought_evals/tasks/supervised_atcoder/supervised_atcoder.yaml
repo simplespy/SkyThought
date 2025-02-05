@@ -1,0 +1,10 @@
+handler: supervised_atcoder
+dataset_path: /ephemeral/peiyao-workspace/data/atcoder_problem_set.json
+dataset_split: all
+question_key: question
+answer_key: solution
+templating_parameters:
+  with_fn_name_template: "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition. {prompt}" 
+  without_fn_name_template: "Generate an executable Python function generated from the given prompt. Return the function body without invoking it at the final solution. {prompt}"
+  with_starter_code_template: "{input}\n{starter_code}"
+

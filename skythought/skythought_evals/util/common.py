@@ -61,7 +61,8 @@ def timeout(seconds):
 
 
 def has_code(response):
-    pattern = r"```(?:[a-zA-Z]*)\n(.*?)```"
+    #pattern = r"```(?:[a-zA-Z]*)\n(.*?)```"
+    pattern = r"```(?:[a-zA-Z0-9]*)\n(.*?)```"
     # Use re.DOTALL to match multiline content inside backticks
     matches = re.findall(pattern, response, re.DOTALL)
     # print(matches)

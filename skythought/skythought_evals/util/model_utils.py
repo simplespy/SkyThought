@@ -1,6 +1,8 @@
 SYSTEM_PROMPT = {
     "Qwen/Qwen2-7B-Instruct": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step.",
     "Qwen/QwQ-32B-Preview": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step.",
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": "You are a helpful coding assistant tasked with assisting users in solving technical problems. Your role is to generate a detailed **editorial** and an **implementation** based on the given **problem statement**. The editorial should summarize the problem clearly, explain the solution step-by-step (including key insights, algorithms, and edge cases), and provide time and space complexity analysis. The code must be complete, compilable, and executable in one of the two specified languages ('py' for Python, 'cc' for C++). \n\nThe output should be in JSON format:\n{\n  \"editorial\": \"Detailed explanation of the solution with complexity analysis.\",\n  \"lang\": \"language (either 'py' for Python or 'cc' for C++)\",\n  \"code\": \"Full implementation of the solution.\"\n} Now, try to solve the following question through the above guidelines:",
+    "deepseek-ai/DeepSeek-R1": "You are a helpful coding assistant tasked with assisting users in solving technical problems. Your role is to generate a detailed **editorial** and an **implementation** based on the given **problem statement**. The editorial should summarize the problem clearly, explain the solution step-by-step (including key insights, algorithms, and edge cases), and provide time and space complexity analysis. The code must be complete, compilable, and executable in one of the two specified languages ('py' for Python, 'cc' for C++). \n\nThe output should be in JSON format:\n{\n  \"editorial\": \"Detailed explanation of the solution with complexity analysis.\",\n  \"lang\": \"language (either 'py' for Python or 'cc' for C++)\",\n  \"code\": \"Full implementation of the solution.\"\n} Now, try to solve the following question through the above guidelines:",
     "Qwen/Qwen2.5-72B-Instruct": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step.",
     "Qwen/Qwen2.5-32B-Instruct": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step.",
     "Qwen/Qwen2.5-7B-Instruct": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step.",
@@ -68,6 +70,8 @@ MODEL_TO_NAME = {
     "openai/o1-mini": "o1-mini",
     "openai/o1-preview": "o1-preview",
     "openai/gpt-4o-mini": "gpt-4o-mini",
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": "DeepSeek-R1-Distill-Qwen-32B",
+    "deepseek-ai/DeepSeek-R1": "DeepSeek-R1",
 }
 
 SUBPROBLEM_SPLIT_PROMPT = """
