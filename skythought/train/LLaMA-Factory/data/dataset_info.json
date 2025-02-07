@@ -656,5 +656,47 @@
       "chosen": "chosen",
       "rejected": "rejected"
     }
+  },
+  "D2-QwQ": {
+    "file_name": "QwQ-32B-Preview_atcoder_dataset.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "system": "system"
+    },
+    "tags": {
+      "role_tag": "from",
+      "content_tag": "value",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
+  "D2-R1D": {
+    "file_name": "DeepSeek-R1-Distill-Qwen-32B_atcoder.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "system": "system"
+    },
+    "tags": {
+      "role_tag": "from",
+      "content_tag": "value",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
+  "D3-QwQ": {
+    "file_name": "QwQ-32B-Preview_supervised_atcoder_dataset.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "system": "system"
+    },
+    "tags": {
+      "role_tag": "from",
+      "content_tag": "value",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
   }
 }
