@@ -658,7 +658,7 @@
     }
   },
   "D2-QwQ": {
-    "file_name": "QwQ-32B-Preview_atcoder.json",
+    "file_name": "atcoder/QwQ-32B-Preview_atcoder.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "conversations",
@@ -672,7 +672,7 @@
     }
   },
   "D2-R1D": {
-    "file_name": "DeepSeek-R1-Distill-Qwen-32B_atcoder.json",
+    "file_name": "atcoder/DeepSeek-R1-Distill-Qwen-32B_atcoder.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "conversations",
@@ -686,7 +686,7 @@
     }
   },
   "D3-QwQ": {
-    "file_name": "QwQ-32B-Preview_supervised_atcoder.json",
+    "file_name": "atcoder/QwQ-32B-Preview_supervised_atcoder.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "conversations",

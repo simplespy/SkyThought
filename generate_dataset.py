@@ -4,7 +4,7 @@ import sys
 config_name = sys.argv[1]
 #"DeepSeek-R1-Distill-Qwen-32B_atcoder"
 input_json_path = f"./data/{config_name}_all_None_False_0_-1.json"
-output_json_path = f"./skythought/train/LLaMA-Factory/data/{config_name}.json"
+output_json_path = f"./skythought/train/LLaMA-Factory/data/atcoder/{config_name}.json"
 
 with open(input_json_path, 'r') as f:
     data = json.load(f)
