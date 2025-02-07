@@ -658,7 +658,7 @@
     }
   },
   "D2-QwQ": {
-    "file_name": "QwQ-32B-Preview_atcoder_dataset.json",
+    "file_name": "QwQ-32B-Preview_atcoder.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "conversations",
@@ -686,7 +686,7 @@
     }
   },
   "D3-QwQ": {
-    "file_name": "QwQ-32B-Preview_supervised_atcoder_dataset.json",
+    "file_name": "QwQ-32B-Preview_supervised_atcoder.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "conversations",
