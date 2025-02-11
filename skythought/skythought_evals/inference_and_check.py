@@ -4,7 +4,7 @@ import json
 import os
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from functools import partial
-
+from torch import float16
 import numpy as np
 from openai import OpenAI
 from skythought_evals.tasks import (
@@ -222,11 +222,15 @@ def perform_check(handler: TaskHandler, temperatures, result_file, args):
     tasks = []
     for item in remaining_data:
         problem_key = item[handler.question_key]
+        print("problem_key", problem_key)
         # If this item exists in the results file, check each temperature
         if problem_key in results and "responses" in results[problem_key]:
             for temp in temperatures:
+                print("temp", str(temp))
                 if str(temp) in results[problem_key]["responses"]:
+                    
                     response_entries = results[problem_key]["responses"][str(temp)]
+                    print("response_entries", response_entries)
                     for sample_id, response_entry in enumerate(response_entries):
                         if sample_id > (args.n - 1):
                             continue
@@ -544,12 +548,12 @@ def main():
     ):
         result_file = os.path.join(
             args.result_dir,
-            f"{MODEL_TO_NAME[args.model]}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}_{args.math_difficulty_lower_bound}_{args.math_difficulty_upper_bound}.json",
+            f"{MODEL_TO_NAME.get(args.model, args.model.split('/')[-1])}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}_{args.math_difficulty_lower_bound}_{args.math_difficulty_upper_bound}.json",
         )
     else:
         result_file = os.path.join(
             args.result_dir,
-            f"{MODEL_TO_NAME[args.model]}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}.json",
+            f"{MODEL_TO_NAME.get(args.model, args.model.split('/')[-1])}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}.json",
         )
 
     if args.check:
@@ -559,11 +563,11 @@ def main():
             or args.math_difficulty_upper_bound is not None
         ):
             converted_file = (
-                f"{args.result_dir}/converted_{MODEL_TO_NAME[args.model]}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}"
+                f"{args.result_dir}/converted_{MODEL_TO_NAME.get(args.model, args.model.split('/')[-1])}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}_{args.start}_{args.end}"
                 + f"_{args.math_difficulty_lower_bound}_{args.math_difficulty_upper_bound}.json"
             )
         else:
-            converted_file = f"{args.result_dir}/converted_{MODEL_TO_NAME[args.model]}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}"
+            converted_file = f"{args.result_dir}/converted_{MODEL_TO_NAME.get(args.model, args.model.split('/')[-1])}_{args.task}_{args.split}_{args.subset}_{args.filter_difficulty}"
             f"_{args.start}_{args.end}.json"
         if os.path.exists(converted_file):
             result_file = converted_file
@@ -575,7 +579,7 @@ def main():
             if args.model.startswith("openai")
             else LLM(model=args.model, tensor_parallel_size=args.tp)
         )
-        system_prompt = SYSTEM_PROMPT[args.model]
+        system_prompt = SYSTEM_PROMPT.get(args.model, "You are a helpful coding assistant tasked with assisting users in solving technical problems. Your role is to follow a structured reasoning approach before arriving at a precise solution. \n\nYour response should have two sections: Thought and Solution.\n\nIn the **Thought** section, outline your reasoning step by step using this format:\n\n<|begin_of_thought|>\n{Step-by-step logical process, each step separated by '\n\n'}\n<|end_of_thought|>\n\n The thought section should include analysis, summarization, brainstorming, verification, refinement, and backtracking when needed. \n\nIn the **Solution** section, present the final, correct solution concisely and clearly. The code must be complete, compilable, and executable in Python, formatted as:\n\n<|begin_of_solution|>\n{Final Python code solution}\n<|end_of_solution|>\n\nNow, solve the following problem using this framework:")
         perform_inference_and_save(
             handler, temperatures, max_tokens, result_file, llm, system_prompt, args
         )
@@ -585,8 +589,10 @@ def main():
         OpenAI()
         if args.model.startswith("openai")
         else LLM(model=args.model, tensor_parallel_size=args.tp)
+        if args.model != "cognitivecomputations/DeepSeek-R1-AWQ"
+        else LLM(model=args.model, tensor_parallel_size=args.tp, trust_remote_code=True, dtype=float16, max_model_len=8192, kv_cache_dtype="fp8_e5m2", calculate_kv_scales=True)
     )
-    system_prompt = SYSTEM_PROMPT[args.model]
+    system_prompt = SYSTEM_PROMPT.get(args.model, "You are a helpful coding assistant tasked with assisting users in solving technical problems. Your role is to follow a structured reasoning approach before arriving at a precise solution. \n\nYour response should have two sections: Thought and Solution.\n\nIn the **Thought** section, outline your reasoning step by step using this format:\n\n<|begin_of_thought|>\n{Step-by-step logical process, each step separated by '\n\n'}\n<|end_of_thought|>\n\n The thought section should include analysis, summarization, brainstorming, verification, refinement, and backtracking when needed. \n\nIn the **Solution** section, present the final, correct solution concisely and clearly. The code must be complete, compilable, and executable in Python, formatted as:\n\n<|begin_of_solution|>\n{Final Python code solution}\n<|end_of_solution|>\n\nNow, solve the following problem using this framework:")
 
     perform_inference_and_check(
         handler,

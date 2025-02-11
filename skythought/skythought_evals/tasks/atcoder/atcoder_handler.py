@@ -87,10 +87,12 @@ class AtCoderHandler(TaskHandler):
         return conversations
 
     def load_and_filter_dataset(self, start, end, split=None, subset=None, difficulty=None, args=None):
-        with open("/ephemeral/peiyao-workspace/data/atcoder_problem_set.json", 'r') as file:
+        with open(self.task_config.dataset_path, 'r') as file:
             data = json.load(file)
-            train_data = pd.DataFrame(data)
-            return train_data.iloc[start:end] if end > 0 else train_data.iloc[start:]
+            if split is None:
+                df = pd.DataFrame(data['train'] + data['test'])
+            else: df = pd.DataFrame(data[split])
+            return df.iloc[start:end] if end > 0 else df.iloc[start:]
 
     def process_remaining_data(self, train_data, results):
         return [row.to_dict() for _, row in train_data.iterrows() if str(row["question"]) not in results]
